@@ -12,7 +12,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    env_file: .env.local
     environment:
       DATABASE_URL: postgresql+asyncpg://wms:wms@postgres:5432/wms_dev
       SYNC_DATABASE_URL: postgresql://wms:wms@postgres:5432/wms_dev
@@ -35,7 +34,6 @@ services:
         condition: service_healthy
       redis:
         condition: service_started
-    env_file: .env.local
     environment:
       DATABASE_URL: postgresql+asyncpg://wms:wms@postgres:5432/wms_dev
       SYNC_DATABASE_URL: postgresql://wms:wms@postgres:5432/wms_dev
@@ -47,7 +45,6 @@ services:
     command: celery -A app.tasks.celery_app beat --loglevel=info
     depends_on:
       - redis
-    env_file: .env.local
     environment:
       REDIS_URL: redis://redis:6379/0
       CELERY_BROKER_URL: redis://redis:6379/0
